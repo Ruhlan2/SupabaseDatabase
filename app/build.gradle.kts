@@ -80,13 +80,10 @@ dependencies {
 
     //Supabase
     implementation(platform(libs.bom))
-    implementation(libs.supabase.postgrest.kt)
-    implementation(libs.realtime.kt)
+    implementation(libs.bundles.supabase)
 
     //Ktor
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.logging)
+    implementation(libs.bundles.ktor)
 
     //Serialization
     implementation(libs.kotlinx.serialization.json)
@@ -96,7 +93,5 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.lifecycle)
 }
