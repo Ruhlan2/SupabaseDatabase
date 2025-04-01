@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun insertUser() {
         binding.insert.setOnClickListener {
-            vm.createUser(
-                email = "ruhlanusubov@gmail.com",
-                name = "Ruhlan11"
+            vm.updateSelectedName(
+                oldName = "Tester@1",
+                newName = "Tester@2"
             )
         }
     }

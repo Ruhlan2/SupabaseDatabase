@@ -11,5 +11,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface UserRepository {
     suspend fun createUser(userDto: UserDto): Flow<NetworkResource<PostgrestResult>>
-    suspend fun getUsers() : Flow<NetworkResource<List<UserDto>>>
+    suspend fun getUsers(): Flow<NetworkResource<List<UserDto>>>
+    suspend fun updateName(oldName:String,newName: String) : Flow<NetworkResource<PostgrestResult>>
 }

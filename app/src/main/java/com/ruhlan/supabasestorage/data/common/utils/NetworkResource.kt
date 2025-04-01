@@ -42,5 +42,3 @@ fun <R> Flow<R>.mapResource(): Flow<NetworkResource<R>> = callbackFlow {
         trySend(NetworkResource.Success(null))
     }
 }
-
-

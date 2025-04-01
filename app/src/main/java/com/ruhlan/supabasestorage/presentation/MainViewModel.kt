@@ -21,15 +21,24 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _createUserResult = MutableStateFlow<NetworkResource<PostgrestResult>>(value = NetworkResource.Loading)
-    val createUserResult: StateFlow<NetworkResource<PostgrestResult>> = _createUserResult.asStateFlow()
+    private val _createUserResult =
+        MutableStateFlow<NetworkResource<PostgrestResult>>(value = NetworkResource.Loading)
+    val createUserResult: StateFlow<NetworkResource<PostgrestResult>> =
+        _createUserResult.asStateFlow()
 
-    private val _usersResult = MutableStateFlow<NetworkResource<List<UserDto>>>(value = NetworkResource.Loading)
-    val userResult : StateFlow<NetworkResource<List<UserDto>>> = _usersResult.asStateFlow()
+    private val _usersResult =
+        MutableStateFlow<NetworkResource<List<UserDto>>>(value = NetworkResource.Loading)
+    val userResult: StateFlow<NetworkResource<List<UserDto>>> = _usersResult.asStateFlow()
+
+    private val _updateSelectedNameResult =
+        MutableStateFlow<NetworkResource<PostgrestResult>>(value = NetworkResource.Loading)
+    val updateSelectedNameResult: StateFlow<NetworkResource<PostgrestResult>> =
+        _updateSelectedNameResult.asStateFlow()
 
     init {
         getAllUsers()
     }
+
     fun createUser(
         email: String,
         name: String
@@ -50,6 +59,20 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             userRepository.getUsers().collect {
                 _usersResult.value = it
+            }
+        }
+    }
+
+    fun updateSelectedName(
+        oldName: String,
+        newName: String
+    ) {
+        viewModelScope.launch {
+            userRepository.updateName(
+                oldName = oldName,
+                newName = newName
+            ).collect {
+                _updateSelectedNameResult.value = it
             }
         }
     }

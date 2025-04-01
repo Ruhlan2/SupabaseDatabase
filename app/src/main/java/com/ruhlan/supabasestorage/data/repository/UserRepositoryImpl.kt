@@ -25,4 +25,17 @@ class UserRepositoryImpl @Inject constructor(
         executeRequest {
             database.from(table = SUPABASE_DB).select().decodeList<UserDto>()
         }
+
+    override suspend fun updateName(oldName:String,newName: String): Flow<NetworkResource<PostgrestResult>> =
+        executeRequest {
+            database.from(table = SUPABASE_DB).update(
+                {
+                    UserDto::name setTo newName
+                }
+            ) {
+                filter {
+                    UserDto::name eq oldName
+                }
+            }
+        }
 }
