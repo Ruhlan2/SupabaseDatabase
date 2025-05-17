@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 class UserRepositoryImpl @Inject constructor(
     private val database: Postgrest
-) : UserRepository {
+): UserRepository {
     override suspend fun createUser(userDto: UserDto): Flow<NetworkResource<PostgrestResult>> =
         executeRequest {
             database.from(table = SUPABASE_DB).insert(userDto)
@@ -26,7 +26,10 @@ class UserRepositoryImpl @Inject constructor(
             database.from(table = SUPABASE_DB).select().decodeList<UserDto>()
         }
 
-    override suspend fun updateName(oldName:String,newName: String): Flow<NetworkResource<PostgrestResult>> =
+    override suspend fun updateName(
+        oldName: String,
+        newName: String
+    ): Flow<NetworkResource<PostgrestResult>> =
         executeRequest {
             database.from(table = SUPABASE_DB).update(
                 {

@@ -20,20 +20,18 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository
-) : ViewModel() {
+): ViewModel() {
     private val _createUserResult =
-        MutableStateFlow<NetworkResource<PostgrestResult>>(value = NetworkResource.Loading)
-    val createUserResult: StateFlow<NetworkResource<PostgrestResult>> =
-        _createUserResult.asStateFlow()
+        MutableStateFlow<NetworkResource<PostgrestResult>>(NetworkResource.Loading)
+    val createUserResult: StateFlow<NetworkResource<PostgrestResult>>
+        get() = _createUserResult.asStateFlow()
 
     private val _usersResult =
-        MutableStateFlow<NetworkResource<List<UserDto>>>(value = NetworkResource.Loading)
+        MutableStateFlow<NetworkResource<List<UserDto>>>(NetworkResource.Loading)
     val userResult: StateFlow<NetworkResource<List<UserDto>>> = _usersResult.asStateFlow()
 
-    private val _updateSelectedNameResult =
-        MutableStateFlow<NetworkResource<PostgrestResult>>(value = NetworkResource.Loading)
-    val updateSelectedNameResult: StateFlow<NetworkResource<PostgrestResult>> =
-        _updateSelectedNameResult.asStateFlow()
+    private val _updateSelectedNameResult = MutableStateFlow<NetworkResource<PostgrestResult>>(NetworkResource.Loading)
+    val updateSelectedNameResult: StateFlow<NetworkResource<PostgrestResult>> = _updateSelectedNameResult.asStateFlow()
 
     init {
         getAllUsers()
